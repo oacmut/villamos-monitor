@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚋 BKK Villamos Monitor (2 & 2B)
 
-## Getting Started
+Egy valós idejű térképes webalkalmazás és terminálos Python szkript a budapesti 2-es és 2B villamosok követésére a Müpa és a Közvágóhíd megállókból, **Jászai Mari tér irányába**. 
 
-First, run the development server:
+Mivel a hagyományos térképalkalmazások gyakran nem kezelik elég jól az alternatív járatok (pl. 2-es vs. 2B) közti optimális választást ezen a szakaszon, ez az app egy dedikált felületen mutatja meg a közeledő járatokat. Így mindig tudni fogod, hogy melyik megállóba érdemesebb sétálni a leggyorsabb eljutás érdekében.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Funkciók
+* **Valós idejű térkép:** Élő GPS pozíciók és haladási irány a térképen.
+* **Intelligens időkalkuláció:** Kijelzi a pontos érkezési időket (ETA). Még azokat a járatokat is listázza tervezett időponttal, amelyek még bent állnak a végállomáson és nincs élő GPS jelük.
+* **Reszponzív dizájn:** Mobilon Apple Maps-szerű, alul lapozható (snap) kártyákkal működik, asztali gépen pedig letisztult oldalsó panellel.
+* **Python CLI kliens:** A webapp mellett egy egyszerű terminálos szkript is elérhető a gyors lekérdezésekhez.
+
+## 🛠 Használt Technológiák
+* **Frontend:** [Next.js](https://nextjs.org/) (App Router), React
+* **Térkép:** [React Leaflet](https://react-leaflet.js.org/) & [Leaflet.js](https://leafletjs.com/)
+* **Stílus:** Custom CSS (Modern, Apple-szerű UI, üveg effektekkel)
+* **Adatforrás:** [BKK FUTÁR (Open Data) API](https://bkk.hu/fejlesztenel/nyilt-adatok/)
+* **CLI Eszköz:** Python 3
+
+## 📂 Projekt Struktúra
+
+A projekt két fő részre oszlik: a `villamos-monitor` Next.js alkalmazásra és a gyökérkönyvtárban lévő `app.py` szkriptre.
+
+```text
+MAPSAPP/
+├── .env                  # A Python szkript környezeti változói
+├── app.py                # Terminálos Python kliens (csak ETA-t ír ki)
+└── villamos-monitor/     # A Next.js Webalkalmazás mappája
+    ├── .env.local        # A Next.js app környezeti változói
+    ├── package.json      # Node.js függőségek
+    ├── src/
+    │   └── app/
+    │       ├── api/trams/route.js # BKK API lekérdezések és adatfeldolgozás
+    │       ├── globals.css        # Globális stílusok és reszponzív UI
+    │       ├── layout.js          # Next.js layout
+    │       ├── MapComponent.jsx   # A térkép és a kártyák React komponense
+    │       └── page.js            # Főoldal
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Telepítés és Futtatás
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 1. Előfeltételek
+* [Node.js](https://nodejs.org/) (v18+)
+* [Python](https://www.python.org/) (v3.8+)
+* BKK API Kulcs (igényelhető a BKK fejlesztői portálján)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Környezeti változók beállítása (.env)
+A projekt két különálló környezeti fájlt használ. Mindkettőben ugyanúgy kell megadni az API kulcsot.
 
-## Learn More
+Hozd létre a `villamos-monitor/.env.local` fájlt a Next.js-hez:
+```env
+BKK_API_KEY=ide_ird_a_bkk_api_kulcsodat
+```
 
-To learn more about Next.js, take a look at the following resources:
+Hozd létre a gyökérkönyvtárban a `.env` fájlt a Python szkripthez:
+```env
+BKK_API_KEY=ide_ird_a_bkk_api_kulcsodat
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. A Webalkalmazás futtatása (Next.js)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Lépj be a webalkalmazás mappájába, majd telepítsd a függőségeket:
+```bash
+cd villamos-monitor
+npm install
+```
 
-## Deploy on Vercel
+**Fejlesztői környezetben (Development):**
+Ez a parancs elindítja a dev servert, ami automatikusan frissül, ha módosítod a kódot.
+```bash
+npm run dev
+```
+[http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
