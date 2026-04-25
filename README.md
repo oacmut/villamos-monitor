@@ -43,14 +43,9 @@ A projekt két fő részre oszlik: a `villamos-monitor` Next.js alkalmazásra é
 * BKK API Kulcs (igényelhető a BKK fejlesztői portálján)
 
 ### 2. Környezeti változók beállítása (.env)
-A projekt két különálló környezeti fájlt használ. Mindkettőben ugyanúgy kell megadni az API kulcsot.
+A projekt egy környezeti fájlt használ. Mindkettőhöz ugyanúgy kell megadni az API kulcsot.
 
-Hozd létre a `villamos-monitor/.env.local` fájlt a Next.js-hez:
-```env
-BKK_API_KEY=ide_ird_a_bkk_api_kulcsodat
-```
-
-Hozd létre a gyökérkönyvtárban a `.env` fájlt a Python szkripthez:
+Hozd létre a `villamos-monitor/.env` fájlt:
 ```env
 BKK_API_KEY=ide_ird_a_bkk_api_kulcsodat
 ```
