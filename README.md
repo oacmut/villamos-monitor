@@ -22,11 +22,9 @@ Mivel a hagyományos térképalkalmazások gyakran nem kezelik elég jól az alt
 A projekt két fő részre oszlik: a `villamos-monitor` Next.js alkalmazásra és a gyökérkönyvtárban lévő `app.py` szkriptre.
 
 ```text
-MAPSAPP/
-├── .env                  # A Python szkript környezeti változói
-├── app.py                # Terminálos Python kliens (csak ETA-t ír ki)
 └── villamos-monitor/     # A Next.js Webalkalmazás mappája
-    ├── .env.local        # A Next.js app környezeti változói
+    |── app.py            # Terminálos Python kliens (csak ETA-t ír ki)
+    ├── .env              # Környezeti változók
     ├── package.json      # Node.js függőségek
     ├── src/
     │   └── app/
